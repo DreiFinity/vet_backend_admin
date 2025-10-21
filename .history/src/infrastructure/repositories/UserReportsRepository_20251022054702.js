@@ -7,22 +7,22 @@ export default class UserReportsRepository {
     let query = "";
     if (role === "client") {
       query = `
-        SELECT 
-        ur.report_id,
-        ur.reported_user_id,
-        ur.reporter_user_id,
-        ur.evidence_text,
-        ur.evidence_image,
-        ur.date_reported,
-        u1.is_banned,
-        COALESCE(c.client_name, 'Unknown Client') AS reported_user_name,
-        COALESCE(c2.client_name, 'Unknown Reporter') AS reporter_user_name
-    FROM user_reports ur
-    JOIN users u1 ON ur.reported_user_id = u1.user_id
-    LEFT JOIN clients c ON u1.user_id = c.user_id
-    JOIN users u2 ON ur.reporter_user_id = u2.user_id
-    LEFT JOIN clients c2 ON u2.user_id = c2.user_id
-    WHERE u1.role = 'client';
+    SELECT 
+    ur.report_id,
+    ur.reported_user_id,
+    ur.reporter_user_id,
+    ur.evidence_text,
+    ur.evidence_image,
+    ur.date_reported,
+    u1.is_banned,
+    COALESCE(c.client_name, 'Unknown Client') AS reported_user_name,
+    COALESCE(c2.client_name, 'Unknown Reporter') AS reporter_user_name
+FROM user_reports ur
+JOIN users u1 ON ur.reported_user_id = u1.user_id
+LEFT JOIN clients c ON u1.user_id = c.user_id
+JOIN users u2 ON ur.reporter_user_id = u2.user_id
+LEFT JOIN clients c2 ON u2.user_id = c2.user_id
+WHERE u1.role = 'client';
       `;
     } else if (role === "clinic_owner") {
       query = `
